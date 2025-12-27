@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:9.6
+    container_name: dev-database
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=fakedata
+      - POSTGRES_PORT=5432
+    ports:
+      - '5432:5432'
+    networks:
+      - mynet
+  api:
+    container_name: disponibilidade-dados-api
+    build: .
+    ports:
+      - '8000:8000'
+    networks:
+      - mynet
+networks:
+    mynet:
+      name: my-shared-db-network
